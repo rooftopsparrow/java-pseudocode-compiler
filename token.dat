@@ -1,0 +1,25 @@
+ABC := 19 ;
+PQR  := ABC +4.72 ;
+BEST := 0.0 ;
+IF  ( PQR < 2 * ABC - 1 ) THEN
+     READ ( NEW ) ;
+ELSE IF (PQR <= ( 3* ABC + 2))THEN
+         READ ( BEST ) ;
+         NEW :=BEST + 4;
+     ELSE
+         READ (BEST);
+         NEW := BEST-9;
+I := 1 ;
+LOOP
+     IF ( ( ( I = NEW ) OR (I>=NEW))AND(BEST<>0)) THEN
+         PRINT "ERROR" ;
+         BREAK ;
+     ELSE
+         PRINT "OKAY" ;
+     IF ( NEW / 2.0 > ABC ) THEN
+         PRINT "BIG" ;     
+     I  := I + 1 ;
+     IF ( I > NEW ) THEN
+         BREAK ;
+PRINT "bye all"
+END
