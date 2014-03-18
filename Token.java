@@ -11,9 +11,9 @@ public class Token {
     private Integer code;
 
     public Token(String value, String type, Integer code) {
-        value = value;
-        type = type;
-        code = code;
+        this.value = value;
+        this.type = type;
+        this.code = code;
     }
 
     public String getValue() {

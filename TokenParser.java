@@ -2,11 +2,7 @@ import java.util.regex.*;
 
 public class TokenParser {
 
-    public TokenTable tokenTable;
-
-    public TokenParser() {
-        this.tokenTable = new TokenTable();
-    }
+    public TokenTable tokenTable = new TokenTable();
 
     // Return whether the string is a number
     public boolean isNumber(String s) {
@@ -43,7 +39,7 @@ public class TokenParser {
     }
 
     public boolean isDelimiter(String s) {
-        return (this.isSpace(s) || this.isEOL(s) || this.tokenTable.isToken(s));
+        return (this.isSpace(s) || this.isEOL(s) || tokenTable.isToken(s));
     }
 
     public boolean isAssignment(String s, String c) {
@@ -52,22 +48,22 @@ public class TokenParser {
 
     public Token transform(String fragment) {
 
-        if (this.tokenTable.isToken(fragment))
-            return new Token(fragment, fragment, this.tokenTable.getCode(fragment));
+        if (tokenTable.isToken(fragment))
+            return new Token(fragment, fragment, tokenTable.getCode(fragment));
 
         if (this.isSpace(fragment))
-          return new Token(fragment, "SPACE", this.tokenTable.getCode("SPACE"));
+          return new Token(fragment, "SPACE", tokenTable.getCode("SPACE"));
 
         if (this.isEOL(fragment))
-            return new Token(fragment, "EOL", this.tokenTable.getCode("EOL"));
+            return new Token(fragment, "EOL", tokenTable.getCode("EOL"));
 
         if (this.isSubString(fragment))
-            return new Token(fragment, "STRING", this.tokenTable.getCode("STRING"));
+            return new Token(fragment, "STRING", tokenTable.getCode("STRING"));
 
         if (this.isNumber(fragment))
-           return new Token(fragment, "NUMBER", this.tokenTable.getCode("NUMBER"));
+           return new Token(fragment, "NUMBER", tokenTable.getCode("NUMBER"));
 
-        return new Token(fragment, "IDENTIFIER", this.tokenTable.getCode("IDENTIFIER"));
+        return new Token(fragment, "IDENTIFIER", tokenTable.getCode("IDENTIFIER"));
 
     }
 
