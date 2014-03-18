@@ -82,6 +82,7 @@ public class TokenParserTest {
     public void isStringCharacterShouldReturnFalseIfIsNotStringCharacter() {
         assertFalse("a is not a string char", parser.isStringCharacter("a"));
         assertFalse("7 is not a string char", parser.isStringCharacter("7"));
+        assertFalse("'' is not a string char", parser.isStringCharacter(""));
     }
 
     @Test
@@ -119,6 +120,16 @@ public class TokenParserTest {
     @Test
     public void isSubStringShouldReturnFalseWhenDoesNotContainsSubString() {
         assertFalse("ARGS does not contain a substring", parser.isSubString("ARGS"));
+    }
+
+    @Test
+    public void isLogicalShouldReturnTrueWhenLogicalALogicalOperator() {
+        assertTrue("< is a logical operator", parser.isLogical("<"));
+        assertTrue("= is a logical operator", parser.isLogical("="));
+        assertTrue("> is a logical operator", parser.isLogical(">"));
+        assertTrue("<> is a logical operator", parser.isLogical("<>"));
+        assertTrue("<= is a logical operator", parser.isLogical("<="));
+        assertTrue(">= is a logical operator", parser.isLogical(">="));
     }
 
 

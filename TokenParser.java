@@ -1,4 +1,6 @@
 import java.util.regex.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TokenParser {
 
@@ -46,6 +48,11 @@ public class TokenParser {
         return (s.substring(s.length() - 1) + c).equals(":=");
     }
 
+    public boolean isLogical(String s) {
+        // return false;
+        return (Pattern.matches("^>|>=|<>|=|<=|<$", s));
+    }
+
     public Token transform(String fragment) {
 
         if (tokenTable.isToken(fragment))
@@ -68,7 +75,59 @@ public class TokenParser {
     }
 
     public Token getTokenObject(String str) {
-       return new Token("a", "b", 3);
+
+        ArrayList<String> chars = new ArrayList<String>(Arrays.asList(str.split("(?!^)")));
+        String currentChar = "";
+        String nextChar = "";
+        String fragment = "";
+
+        do {
+
+            currentChar = chars.remove(0);
+            fragment += currentChar; 
+            nextChar = chars.isEmpty() ? "" : chars.get(0);
+
+            // Assignment opperator check
+            // ABC:= -> fragment ABC
+            if (this.isAssignment(fragment, nextChar)) {
+              if (fragment.equals(":")) fragment += nextChar;
+              else fragment = fragment.substring(0, fragment.length() - 1);
+            }
+
+            // String sub loop
+            if (this.isStringCharacter(fragment)) {
+              String stringpart;
+              do {
+                stringpart = chars.isEmpty() ? "" : chars.remove(0); 
+                fragment += stringpart;
+              } while (!this.isStringCharacter(stringpart) && !chars.isEmpty());
+              // TODO: THROW Exception for unbound strings
+              // if (!isStringCharacter(stringpart)) {
+                // throw new Exception("No end of string in data", str);
+              // }
+              break;
+            }
+
+            // Number sub loop
+            if (this.isDigit(fragment)) {
+              String numberpart = chars.isEmpty() ? "" : chars.remove(0);
+              while (this.isDigit(numberpart) || this.isDecimal(fragment, numberpart)) {
+                fragment += numberpart;
+                numberpart = chars.isEmpty() ? "" : chars.remove(0);
+              }
+              // TODO: THROW Exception for bad number
+              //if (!this.isNumber(fragment)) {
+                // throw new Exception("Not a Number: " + fragment);
+              // }
+              break; 
+            }
+            // Logical opperator check <> >= <=
+            if ( this.isLogical(fragment) && this.isLogical(nextChar) )  fragment += nextChar;
+
+        } while (!this.isDelimiter(fragment) && !this.isDelimiter(nextChar) && !chars.isEmpty());
+
+        return this.transform(fragment);
+
     }
 
 }
