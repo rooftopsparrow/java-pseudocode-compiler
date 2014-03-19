@@ -7,7 +7,7 @@ HAMCREST=lib/hamcrest.jar
 
 all: $(classes)
 
-install:
+deps:
 	mkdir -p lib
 	curl http://albertlatacz.published.s3.amazonaws.com/javarepl/javarepl.jar > lib/javarepl.jar
 	curl http://search.maven.org/remotecontent?filepath=junit/junit/4.11/junit-4.11.jar > lib/junit.jar

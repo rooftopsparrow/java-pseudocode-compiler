@@ -1,6 +1,22 @@
 # pseudocode-compiler
 
-## getToken
+## Getting Started
+
+```
+git clone https://github.com/rooftopsparrow/java-pseudocode-compiler.git
+cd java-pseudocode-compiler
+make deps
+make
+chmod +x getToken
+```
+
+To run tests:
+
+```
+make test
+```
+
+### getToken
 
 getToken parses string input and tokenizes
 into segments with seperate values.
