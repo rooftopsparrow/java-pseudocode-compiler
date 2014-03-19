@@ -52,7 +52,7 @@ public class Token {
             .append(", ")
             .append("\"type\": \"" + this.type + "\"")
             .append(", ")
-            .append("code: \"" + this.code + "\"")
+            .append("\"code\": \"" + this.code + "\"")
             .append(" }")
             .toString();
     }
