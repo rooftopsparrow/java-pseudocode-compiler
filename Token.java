@@ -20,6 +20,10 @@ public class Token {
         return this.value;
     }
 
+    public String getEscapedValue() {
+        return this.value.replace("\n", "\\n");
+    }
+
     public void setValue(String value) {
         this.value = value;
     }
@@ -41,9 +45,15 @@ public class Token {
     }
 
     public String toJSON() {
-        return "{ value:" + this.value + 
-                ", type: " + this.type + ", " +
-                " code: " + this.code + " }";
 
+        return new StringBuilder()
+            .append("{ ")
+            .append("\"value\": \"" + this.getEscapedValue() + "\"")
+            .append(", ")
+            .append("\"type\": \"" + this.type + "\"")
+            .append(", ")
+            .append("code: \"" + this.code + "\"")
+            .append(" }")
+            .toString();
     }
 }
